@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class FileService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
-    private static final String DEFAULT_SAVE_FILE = "game-save.sav";
+    private static final String DEFAULT_SAVE_FILE = "game-save.vd";
 
     public GameState loadGameFromFile(String filename) {
         File file = new File(filename);
