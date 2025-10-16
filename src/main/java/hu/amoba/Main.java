@@ -1,17 +1,36 @@
 package hu.amoba;
 
+import hu.amoba.display.BoardDisplayer;
+import hu.amoba.init.GameInit;
+import hu.amoba.model.GameState;
+import hu.amoba.service.ComputerPlayerService;
+import hu.amoba.service.FileService;
+import hu.amoba.service.GameService;
+import hu.amoba.service.MoveValidatorService;
+import java.util.Random;
+import java.util.Scanner;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Scanner scanner = new Scanner(System.in);
+        FileService fileService = new FileService();
+        GameInit gameInit = new GameInit(scanner);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        GameState gameState = fileService.loadGameFromFile(fileService.getDefaultSaveFile());
+
+        if (gameState == null) {
+            gameState = gameInit.initializeGame();
         }
+
+        BoardDisplayer boardDisplayer = new BoardDisplayer();
+        MoveValidatorService moveValidator = new MoveValidatorService();
+        Random random = new Random();
+        ComputerPlayerService computerPlayer = new ComputerPlayerService(random, moveValidator);
+        GameService gameService = new GameService(boardDisplayer, moveValidator, computerPlayer, fileService, scanner);
+        gameService.startGame(gameState);
+
+        scanner.close();
     }
 }
