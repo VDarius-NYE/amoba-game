@@ -50,6 +50,11 @@ public class Board {
         return occupiedPositions.isEmpty();
     }
 
+    public boolean isInMiddle(Position position) {
+        int middleRow = rows / 2;
+        return position.getRow() == middleRow && position.getCol() >= cols / 2 - 1 && position.getCol() <= cols / 2;
+    }
+
     public boolean isAdjacentToOccupied(Position position) {
         for (Position occupied : occupiedPositions) {
             if (position.isAdjacentTo(occupied)) {
