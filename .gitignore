@@ -20,7 +20,6 @@ buildNumber.properties
 
 # Java
 *.class
-*.log
 *.jar
 *.war
 *.ear
@@ -39,5 +38,10 @@ logs/
 *.bak
 *.swp
 *~
-*.sav
-*.vd
+
+# H2 Database files
+*.mv.db
+*.trace.db
+
+# Game save files
+game-save.vd
