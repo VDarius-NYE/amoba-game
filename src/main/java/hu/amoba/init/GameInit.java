@@ -4,6 +4,7 @@ import hu.amoba.model.Board;
 import hu.amoba.model.GameState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.Scanner;
 
 public class GameInit {
@@ -23,7 +24,7 @@ public class GameInit {
     }
 
     private String getPlayerName() {
-        LOGGER.info("Name: ");
+        LOGGER.info("Please provide your name: ");
         return scanner.next();
     }
 
@@ -39,7 +40,7 @@ public class GameInit {
             LOGGER.info(message);
             size = scanner.nextInt();
             if (size < MIN_SIZE || size > MAX_SIZE) {
-                LOGGER.warn("Invalid map size, please provide the map size between these numbers: {} and {}", MIN_SIZE, MAX_SIZE);
+                LOGGER.warn("The size must be between {} and {}!", MIN_SIZE, MAX_SIZE);
             }
         } while (size < MIN_SIZE || size > MAX_SIZE);
         return size;

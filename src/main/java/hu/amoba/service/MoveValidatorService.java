@@ -15,21 +15,22 @@ public class MoveValidatorService {
         }
 
         if (!board.isEmpty(position)) {
-            LOGGER.warn("This position is already occupied!");
+            LOGGER.warn("This field is already occupied!");
             return false;
         }
 
         if (board.isFirstMove()) {
             if (!board.isInMiddle(position)) {
-                LOGGER.warn("The first move has to be in the middle of the board!");
+                LOGGER.warn("The first move must be in the middle of the board!");
                 return false;
             }
         } else {
             if (!board.isAdjacentToOccupied(position)) {
-                LOGGER.warn("The move must be adjacent to an already occupied position!");
+                LOGGER.warn("The move must be adjacent to an already occupied field!");
                 return false;
             }
         }
+
         return true;
     }
 }

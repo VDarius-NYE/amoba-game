@@ -6,6 +6,7 @@ import hu.amoba.model.Player;
 import hu.amoba.model.Position;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.Scanner;
 
 public class GameService {
@@ -14,19 +15,23 @@ public class GameService {
     private final MoveValidatorService moveValidator;
     private final ComputerPlayerService computerPlayer;
     private final FileService fileService;
+    private final DatabaseService databaseService;
     private final Scanner scanner;
 
-    public GameService(BoardDisplayer boardDisplayer, MoveValidatorService moveValidator, ComputerPlayerService computerPlayer, FileService fileService, Scanner scanner) {
+    public GameService(BoardDisplayer boardDisplayer, MoveValidatorService moveValidator,
+                       ComputerPlayerService computerPlayer, FileService fileService,
+                       DatabaseService databaseService, Scanner scanner) {
         this.boardDisplayer = boardDisplayer;
         this.moveValidator = moveValidator;
         this.computerPlayer = computerPlayer;
         this.fileService = fileService;
+        this.databaseService = databaseService;
         this.scanner = scanner;
     }
 
     public void startGame(GameState gameState) {
-        LOGGER.info("Welcome {}, the game will begin.", gameState.getPlayerName());
-        LOGGER.info("The goal of the game: place 4 of your symbols horizontally, vertically or diagonally!");
+        LOGGER.info("Welcome {}, let's start the game!", gameState.getPlayerName());
+        LOGGER.info("Game objective: place 4 of your symbols in a row horizontally, vertically, or diagonally!");
 
         while (!gameState.isGameOver()) {
             boardDisplayer.displayBoard(gameState.getBoard());
@@ -37,15 +42,18 @@ public class GameService {
                 handleComputerTurn(gameState);
             }
         }
-        displayGameResults(gameState);
+
+        displayGameResult(gameState);
     }
 
-    public void handleHumanTurn(GameState gameState) {
-        LOGGER.info("{}'s turn (X). Enter a position (e.g. a5) or 'save' to save, 'exit' to exit:", gameState.getPlayerName());
+    private void handleHumanTurn(GameState gameState) {
+        LOGGER.info("{}'s turn (X). Enter a position (e.g. a5) or 'save' to save, 'exit' to quit:",
+                gameState.getPlayerName());
+
         String input = scanner.next().toLowerCase();
 
         if ("exit".equals(input)) {
-            LOGGER.info("The game has been stopped.");
+            LOGGER.info("Game interrupted.");
             gameState.setGameOver(true);
             return;
         }
@@ -62,11 +70,12 @@ public class GameService {
     }
 
     private void handleComputerTurn(GameState gameState) {
-        LOGGER.info("The computer's turn (0)..");
+        LOGGER.info("Computer's turn (O)...");
         Position position = computerPlayer.generateMove(gameState.getBoard());
         if (position != null) {
             makeMove(gameState, position);
-            LOGGER.info("The computer's choice: {}{}", (char) ('a' + position.getCol()), position.getRow() + 1);
+            char colChar = (char) ('a' + position.getCol());
+            LOGGER.info("Computer's choice: {}{}", colChar, position.getRow() + 1);
         }
     }
 
@@ -100,14 +109,17 @@ public class GameService {
         }
     }
 
-    private void displayGameResults(GameState gameState) {
-        boardDisplayer.displayBoard((gameState.getBoard()));
+    private void displayGameResult(GameState gameState) {
+        boardDisplayer.displayBoard(gameState.getBoard());
         if (gameState.getWinner() == Player.HUMAN) {
-            LOGGER.info("Congratulations {}! You won!", gameState.getPlayerName());
+            LOGGER.info("Congratulations {}, you won!", gameState.getPlayerName());
+            databaseService.recordWin(gameState.getPlayerName());
         } else if (gameState.getWinner() == Player.COMPUTER) {
-            LOGGER.info("The computer won! Better luck next time!");
+            LOGGER.info("The computer won! Try again!");
         } else {
-            LOGGER.info("See you soon!");
+            LOGGER.info("See you next time!");
         }
+
+        databaseService.displayHighScores();
     }
 }

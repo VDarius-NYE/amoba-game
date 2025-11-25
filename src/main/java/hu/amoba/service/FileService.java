@@ -6,6 +6,7 @@ import hu.amoba.model.Player;
 import hu.amoba.model.Position;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,12 +16,12 @@ import java.io.IOException;
 
 public class FileService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
-    private static final String DEFAULT_SAVE_FILE = "game-save.vd";
+    private static final String DEFAULT_SAVE_FILE = "game_state.txt";
 
     public GameState loadGameFromFile(String filename) {
         File file = new File(filename);
         if (!file.exists()) {
-            LOGGER.info("No saved game found, starting from an empty map.");
+            LOGGER.info("No saved game found, starting with an empty board.");
             return null;
         }
 
@@ -51,7 +52,7 @@ public class FileService {
             LOGGER.info("Game loaded from {} file.", filename);
             return gameState;
         } catch (IOException e) {
-            LOGGER.error("Failed to read save file: {}", e.getMessage());
+            LOGGER.error("Error reading file: {}", e.getMessage());
             return null;
         }
     }
@@ -70,11 +71,12 @@ public class FileService {
             for (Position pos : gameState.getBoard().getOccupiedPositions()) {
                 Player player = gameState.getBoard().getPlayerAt(pos);
                 writer.write(pos.getRow() + "," + pos.getCol() + "," + player.getSymbol());
+                writer.newLine();
             }
 
-            LOGGER.info("The game has been save to: {} file.", filename);
+            LOGGER.info("Game saved to {} file.", filename);
         } catch (IOException e) {
-            LOGGER.error("Error creating save file: {}", e.getMessage());
+            LOGGER.error("Error writing file: {}", e.getMessage());
         }
     }
 
