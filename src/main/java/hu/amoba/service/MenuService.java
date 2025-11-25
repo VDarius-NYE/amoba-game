@@ -1,12 +1,12 @@
 package hu.amoba.service;
 
+import java.io.File;
+import java.util.Scanner;
+
 import hu.amoba.init.GameInit;
 import hu.amoba.model.GameState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.util.Scanner;
 
 public class MenuService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuService.class);

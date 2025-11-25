@@ -1,11 +1,11 @@
 package hu.amoba.init;
 
+import java.util.Scanner;
+
 import hu.amoba.model.Board;
 import hu.amoba.model.GameState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Scanner;
 
 public class GameInit {
     private static final Logger LOGGER = LoggerFactory.getLogger(GameInit.class);

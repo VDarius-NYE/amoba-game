@@ -1,5 +1,8 @@
 package hu.amoba;
 
+import java.util.Random;
+import java.util.Scanner;
+
 import hu.amoba.display.BoardDisplayer;
 import hu.amoba.init.GameInit;
 import hu.amoba.model.GameState;
@@ -10,9 +13,6 @@ import hu.amoba.service.GameService;
 import hu.amoba.service.MenuService;
 import hu.amoba.service.MoveValidatorService;
 import hu.amoba.service.XmlService;
-
-import java.util.Random;
-import java.util.Scanner;
 
 public class Main {
 

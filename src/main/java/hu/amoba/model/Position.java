@@ -27,7 +27,12 @@ public final class Position {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Position position = (Position) o;
         return row == position.row && col == position.col;
     }
@@ -39,9 +44,6 @@ public final class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
-                "row=" + row +
-                ", col=" + col +
-                '}';
+        return "Position{row=" + row + ", col=" + col + '}';
     }
 }

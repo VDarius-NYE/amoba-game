@@ -1,13 +1,13 @@
 package hu.amoba.service;
 
+import java.util.Scanner;
+
 import hu.amoba.display.BoardDisplayer;
 import hu.amoba.model.GameState;
 import hu.amoba.model.Player;
 import hu.amoba.model.Position;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Scanner;
 
 public class GameService {
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);

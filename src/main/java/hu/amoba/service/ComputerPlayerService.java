@@ -1,10 +1,11 @@
 package hu.amoba.service;
 
-import hu.amoba.model.Board;
-import hu.amoba.model.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import hu.amoba.model.Board;
+import hu.amoba.model.Position;
 
 public class ComputerPlayerService {
     private final Random random;

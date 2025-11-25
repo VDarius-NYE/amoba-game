@@ -15,8 +15,8 @@ public class BoardDisplayer {
 
     private String getPrettyPrint(Board board) {
         StringBuilder sb = new StringBuilder();
-        int rows = board.getRows();
-        int cols = board.getCols();
+        final int rows = board.getRows();
+        final int cols = board.getCols();
 
         sb.append("   ");
         for (int col = 0; col < cols; col++) {
