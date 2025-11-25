@@ -30,7 +30,7 @@
             <version>${slf4j.version}</version>
         </dependency>
 
-        <!-- Logback (SLF4J implementacio) -->
+        <!-- Logback (SLF4J implementation) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
