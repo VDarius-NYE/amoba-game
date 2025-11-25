@@ -3,7 +3,6 @@
 *.iml
 *.iws
 *.ipr
-*.xml
 out/
 
 # Maven
@@ -44,4 +43,5 @@ logs/
 *.trace.db
 
 # Game save files
-game-save.vd
+*.txt
+*.xml

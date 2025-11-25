@@ -16,16 +16,18 @@ public class GameService {
     private final ComputerPlayerService computerPlayer;
     private final FileService fileService;
     private final DatabaseService databaseService;
+    private final XmlService xmlService;
     private final Scanner scanner;
 
     public GameService(BoardDisplayer boardDisplayer, MoveValidatorService moveValidator,
                        ComputerPlayerService computerPlayer, FileService fileService,
-                       DatabaseService databaseService, Scanner scanner) {
+                       DatabaseService databaseService, XmlService xmlService, Scanner scanner) {
         this.boardDisplayer = boardDisplayer;
         this.moveValidator = moveValidator;
         this.computerPlayer = computerPlayer;
         this.fileService = fileService;
         this.databaseService = databaseService;
+        this.xmlService = xmlService;
         this.scanner = scanner;
     }
 
@@ -47,7 +49,7 @@ public class GameService {
     }
 
     private void handleHumanTurn(GameState gameState) {
-        LOGGER.info("{}'s turn (X). Enter a position (e.g. a5) or 'save' to save, 'exit' to quit:",
+        LOGGER.info("{}'s turn (X). Enter a position (e.g. a5) or 'save' to save, 'savexml' for XML save, 'exit' to quit:",
                 gameState.getPlayerName());
 
         String input = scanner.next().toLowerCase();
@@ -60,6 +62,11 @@ public class GameService {
 
         if ("save".equals(input)) {
             fileService.saveGameToFile(gameState, fileService.getDefaultSaveFile());
+            return;
+        }
+
+        if ("savexml".equals(input)) {
+            xmlService.saveGameToXml(gameState, xmlService.getDefaultXmlFile());
             return;
         }
 

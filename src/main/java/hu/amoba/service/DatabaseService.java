@@ -102,12 +102,12 @@ public class DatabaseService {
             return;
         }
 
-        LOGGER.info("\n=== HIGH SCORES ===");
+        LOGGER.info("=== HIGH SCORES ===");
         int rank = 1;
         for (PlayerStats stats : scores) {
             LOGGER.info("{}. {} - {} wins", rank++, stats.getPlayerName(), stats.getWins());
         }
-        LOGGER.info("===================\n");
+        LOGGER.info("===================");
     }
 
     public static class PlayerStats {
