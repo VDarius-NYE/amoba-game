@@ -14,10 +14,10 @@ public class Board {
         this.cols = cols;
         this.grid = new Player[rows][cols];
         this.occupiedPositions = new ArrayList<>();
-        InitializeBoard();
+        initializeBoard();
     }
 
-    private void InitializeBoard() {
+    private void initializeBoard() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 grid[i][j] = Player.NONE;
@@ -52,7 +52,8 @@ public class Board {
 
     public boolean isInMiddle(Position position) {
         int middleRow = rows / 2;
-        return position.getRow() == middleRow && position.getCol() >= cols / 2 - 1 && position.getCol() <= cols / 2;
+        return position.getRow() == middleRow && position.getCol() >= cols / 2 - 1
+                && position.getCol() <= cols / 2;
     }
 
     public boolean isAdjacentToOccupied(Position position) {

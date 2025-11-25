@@ -27,11 +27,31 @@ public class BoardDisplayer {
         for (int row = 0; row < rows; row++) {
             sb.append(String.format("%2d ", row + 1));
             for (int col = 0; col < cols; col++) {
-                Player player = board.getPlayerAt(new Position(row, col));
-                sb.append(player.getSymbol()).append(" ");
+                Position pos = new Position(row, col);
+                Player player = board.getPlayerAt(pos);
+
+                if (player == Player.NONE) {
+                    if (board.isFirstMove()) {
+                        if (board.isInMiddle(pos)) {
+                            sb.append("·");
+                        } else {
+                            sb.append(" ");
+                        }
+                    } else {
+                        if (board.isAdjacentToOccupied(pos)) {
+                            sb.append("·");
+                        } else {
+                            sb.append(" ");
+                        }
+                    }
+                } else {
+                    sb.append(player.getSymbol());
+                }
+                sb.append(" ");
             }
             sb.append("\n");
         }
+
         return sb.toString();
     }
 }

@@ -2,7 +2,7 @@ package hu.amoba.model;
 
 public enum Player {
     HUMAN('X'),
-    COMPUTER('0'),
+    COMPUTER('O'),
     NONE(' ');
 
     private final char symbol;

@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Amoba NxM Game</name>
-    <description>Parancssoros Amőba játék implementáció</description>
+    <name>Amoba</name>
+    <description>Progtech amoba beadando</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
