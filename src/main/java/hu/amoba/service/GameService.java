@@ -78,13 +78,30 @@ public class GameService {
 
     private void handleComputerTurn(GameState gameState) {
         LOGGER.info("Computer's turn (O)...");
-        Position position = computerPlayer.generateMove(gameState.getBoard());
-        if (position != null) {
-            makeMove(gameState, position);
-            char colChar = (char) ('a' + position.getCol());
-            LOGGER.info("Computer's choice: {}{}", colChar, position.getRow() + 1);
+
+        Position position = null;
+
+        while (true) {
+            position = computerPlayer.generateMove(gameState.getBoard());
+
+            if (position == null) {
+                LOGGER.warn("Computer generated null move, retrying...");
+                continue;
+            }
+
+            if (!moveValidator.isValidMove(gameState.getBoard(), position)) {
+                LOGGER.warn("Computer generated invalid move: {}{}. Retrying...",
+                        (char) ('a' + position.getCol()), position.getRow() + 1);
+                continue;
+            }
+            break;
         }
+
+        makeMove(gameState, position);
+        char colChar = (char) ('a' + position.getCol());
+        LOGGER.info("Computer's choice: {}{}", colChar, position.getRow() + 1);
     }
+
 
     private void makeMove(GameState gameState, Position position) {
         Player currentPlayer = gameState.getCurrentPlayer();
