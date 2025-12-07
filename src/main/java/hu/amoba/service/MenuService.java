@@ -64,8 +64,7 @@ public class MenuService {
                     return startNewGame();
                 case "5":
                     LOGGER.info("Exiting the game. Goodbye!");
-                    System.exit(0);
-                    break;
+                    return null;
                 default:
                     LOGGER.warn("Invalid option! Please select 1, 2, 3, 4, or 5.");
             }

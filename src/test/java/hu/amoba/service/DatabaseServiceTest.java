@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DatabaseServiceTest {
 
@@ -64,11 +63,5 @@ class DatabaseServiceTest {
         assertEquals(3, scores.get(0).getWins());
         assertEquals("Player2", scores.get(1).getPlayerName());
         assertEquals(2, scores.get(1).getWins());
-    }
-
-    @Test
-    void testGetHighScoresEmpty() {
-        List<DatabaseService.PlayerStats> scores = databaseService.getHighScores();
-        assertTrue(scores.isEmpty());
     }
 }

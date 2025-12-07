@@ -26,8 +26,6 @@ public class Main {
         MenuService menuService = new MenuService(scanner, fileService,
                 databaseService, xmlService, gameInit);
 
-        GameState gameState = menuService.showMainMenu();
-
         BoardDisplayer boardDisplayer = new BoardDisplayer();
         MoveValidatorService moveValidator = new MoveValidatorService();
         Random random = new Random();
@@ -35,7 +33,14 @@ public class Main {
         GameService gameService = new GameService(boardDisplayer, moveValidator,
                 computerPlayer, fileService, databaseService, xmlService, scanner);
 
-        gameService.startGame(gameState);
+        while (true) {
+            GameState gameState = menuService.showMainMenu();
+            if (gameState == null) {
+                break;
+            }
+
+            gameService.startGame(gameState);
+        }
 
         scanner.close();
     }
